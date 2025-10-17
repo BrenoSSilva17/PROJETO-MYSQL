@@ -1,5 +1,5 @@
 import streamlit as st
-from crud import inserir_aluno, listar_alunos, atualizar_idade
+from crud import inserir_aluno, listar_alunos, atualizar_idade, deletar_aluno
 # python -m pip install streamlit
 
 #Rodar o streamlit
@@ -43,4 +43,11 @@ elif menu == "Atualizar idade":
 
 elif menu == "Deletar aluno":
     st.subheader("Deletar aluno")
-    alunos = deletar_aluno()
+    alunos = listar_alunos()
+    if alunos:
+        id_aluno = st.selectbox("Escolha o id do aluno", [linha[0] for linha in alunos])
+        if st.button("Deletar"):
+            deletar_aluno(id_aluno)
+            st.success("Aluno deletado com sucesso!")
+    else:
+        st.info("Nenhum aluno disponivel para deletar.")
